@@ -1,22 +1,15 @@
 import React from "react";
+import { weekDays } from "../common/DateUtils";
 
 function MealRow(props) {
-  var days = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday"
-  ];
+  var meal = props.meal;
 
   return (
     <tr>
-      <td>{days[props.meal.date.getDay()]}</td>
-      <td>{props.meal.main}</td>
-      <td>{props.meal.side1}</td>
-      <td>{props.meal.side2}</td>
+      <td>{weekDays[meal.date.getDay()]}</td>
+      <td>{meal.main}</td>
+      <td>{meal.side1}</td>
+      <td>{meal.side2}</td>
       {false && ( //replace when functionality added
         <td>
           <button type="button" class="close">
