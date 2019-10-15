@@ -1,6 +1,6 @@
 import React from "react";
 import HomePage from "./HomePage";
-import MealsPage from "./MealsPage";
+import MealsPage from "./meals/MealsPage";
 import GroceryPage from "./GroceryPage";
 import TodoPage from "./TodoPage";
 import Header from "./common/Header";
