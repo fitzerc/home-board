@@ -1,11 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, ChangeEvent } from "react";
+import { Todo } from "./Todo";
 
 interface Props {
-  addClicked: (todo: string) => void;
+  addClicked: (todo: Todo) => void;
 }
 
 const AddTodo: React.FunctionComponent<Props> = ({ addClicked }) => {
-  const [newTodo, setNewTodo] = useState<string>("");
+  const [newTodo, setNewTodo] = useState<Todo>({ item: "" });
+
+  function updateNewTodo(e: ChangeEvent): void {
+    setNewTodo({ item: (e.target as HTMLInputElement).value });
+  }
 
   return (
     <div className="input-group mb-3">
@@ -14,7 +19,7 @@ const AddTodo: React.FunctionComponent<Props> = ({ addClicked }) => {
         className="form-control"
         placeholder="Todo Item"
         aria-label="Todo Item"
-        onChange={e => setNewTodo((e.target as HTMLInputElement).value)}
+        onChange={updateNewTodo}
       ></input>
       <div className="input-group-append">
         <button

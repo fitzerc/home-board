@@ -9,9 +9,8 @@ function TodoPage() {
     { item: "mow lawn" }
   ]);
 
-  function callback(val: string) {
-    console.log("in callback: " + val);
-    addToList([...todoList, { item: val }]);
+  function addTodo(todo: Todo) {
+    addToList([...todoList, todo]);
   }
 
   return (
@@ -19,7 +18,7 @@ function TodoPage() {
       <h1>Todo List</h1>
       <TodoTable todoItems={todoList} />
       <hr />
-      <AddTodo addClicked={callback} />
+      <AddTodo addClicked={addTodo} />
     </>
   );
 }
