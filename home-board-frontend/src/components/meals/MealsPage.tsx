@@ -1,5 +1,5 @@
 import React from "react";
-import MealRow from "./MealRow";
+import MealTable from "./MealTable";
 
 function MealsPage() {
   var meals = [
@@ -20,17 +20,7 @@ function MealsPage() {
   return (
     <>
       <h1>Meals</h1>
-      <table class="table table-sm">
-        <tr>
-          <th scope="col">Date</th>
-          <th scope="col">Main</th>
-          <th scope="col">Side</th>
-          <th scope="col">Side</th>
-        </tr>
-        {meals.map(meal => {
-          return <MealRow meal={meal} />;
-        })}
-      </table>
+      <MealTable meals={meals} />
     </>
   );
 }

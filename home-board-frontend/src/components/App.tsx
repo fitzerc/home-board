@@ -1,8 +1,8 @@
 import React from "react";
 import HomePage from "./HomePage";
 import MealsPage from "./meals/MealsPage";
-import GroceryPage from "./GroceryPage";
-import TodoPage from "./TodoPage";
+import GroceryPage from "./groceries/GroceryPage";
+import TodoPage from "./todos/TodoPage";
 import Header from "./common/Header";
 import { Route } from "react-router-dom";
 
