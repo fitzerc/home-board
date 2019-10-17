@@ -12,6 +12,7 @@ const TodoTable: React.FunctionComponent<Props> = ({ todoItems }) => {
       <thead>
         <tr>
           <th scope="col">Todo</th>
+          <th scope="col">Do Date</th>
         </tr>
       </thead>
       {todoItems.map(todo => {

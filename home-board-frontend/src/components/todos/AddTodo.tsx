@@ -1,15 +1,24 @@
 import React, { useState, ChangeEvent } from "react";
 import { Todo } from "./Todo";
+import DatePicker from "react-date-picker";
 
 interface Props {
   addClicked: (todo: Todo) => void;
 }
 
 const AddTodo: React.FunctionComponent<Props> = ({ addClicked }) => {
-  const [newTodo, setNewTodo] = useState<Todo>({ item: "" });
+  const [newTodo, setNewTodo] = useState("");
+  const [newDate, setNewDate] = useState<Date>(new Date());
 
   function updateNewTodo(e: ChangeEvent): void {
-    setNewTodo({ item: (e.target as HTMLInputElement).value });
+    setNewTodo((e.target as HTMLInputElement).value);
+  }
+
+  function addBtnClicked() {
+    addClicked({
+      item: newTodo,
+      doDate: newDate
+    });
   }
 
   return (
@@ -21,12 +30,9 @@ const AddTodo: React.FunctionComponent<Props> = ({ addClicked }) => {
         aria-label="Todo Item"
         onChange={updateNewTodo}
       ></input>
+      <DatePicker onChange={date => setNewDate(date as Date)} value={newDate} />
       <div className="input-group-append">
-        <button
-          type="submit"
-          className="button"
-          onClick={() => addClicked(newTodo)}
-        >
+        <button type="submit" className="button" onClick={addBtnClicked}>
           Add
         </button>
       </div>

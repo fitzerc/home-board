@@ -5,8 +5,8 @@ import { Todo } from "./Todo";
 
 function TodoPage() {
   const [todoList, addToList] = useState<Todo[]>([
-    { item: "fix fence" },
-    { item: "mow lawn" }
+    { item: "fix fence", doDate: new Date() },
+    { item: "mow lawn", doDate: new Date() }
   ]);
 
   function addTodo(todo: Todo) {

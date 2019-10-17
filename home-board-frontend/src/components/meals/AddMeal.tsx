@@ -24,11 +24,6 @@ const AddMeal: React.FunctionComponent<Props> = ({ addClicked }) => {
     setNewSide2((e.target as HTMLInputElement).value);
   }
 
-  function updateNewDate(date: any): void {
-    //setNewMain((e.target as HTMLInputElement).value);
-    setNewDate(date);
-  }
-
   function addMealClicked() {
     addClicked({
       main: newMain,
@@ -61,7 +56,7 @@ const AddMeal: React.FunctionComponent<Props> = ({ addClicked }) => {
         aria-label="Side"
         onChange={updateNewSide2}
       ></input>
-      <DatePicker onChange={date => updateNewDate(date)} value={newDate} />
+      <DatePicker onChange={date => setNewDate(date as Date)} value={newDate} />
       <div className="input-group-append">
         <button type="submit" className="button" onClick={addMealClicked}>
           Add
