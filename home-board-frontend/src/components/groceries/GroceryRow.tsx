@@ -8,15 +8,17 @@ interface Props {
 
 const GroceryRow: React.FunctionComponent<Props> = ({ item }) => {
   return (
-    <tr>
-      <td>{item.item}</td>
-      <td>{item.itemType}</td>
-      {false && ( //TODO
-        <td>
-          <DeleteButton />
-        </td>
-      )}
-    </tr>
+    <tbody>
+      <tr>
+        <td>{item.item}</td>
+        <td>{item.itemType}</td>
+        {false && ( //TODO
+          <td>
+            <DeleteButton />
+          </td>
+        )}
+      </tr>
+    </tbody>
   );
 };
 

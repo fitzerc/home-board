@@ -9,12 +9,14 @@ interface Props {
 const GroceryTable: React.FunctionComponent<Props> = ({ groceryItems }) => {
   return (
     <table className="table table-sm">
-      <tr>
-        <th scope="col">Item</th>
-        <th scope="col">Item Type</th>
-      </tr>
+      <thead>
+        <tr>
+          <th scope="col">Item</th>
+          <th scope="col">Item Type</th>
+        </tr>
+      </thead>
       {groceryItems.map(item => {
-        return <GroceryRow item={item} />;
+        return <GroceryRow key={item.item} item={item} />;
       })}
     </table>
   );
