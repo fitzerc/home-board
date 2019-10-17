@@ -1,5 +1,6 @@
 import React, { useState, ChangeEvent } from "react";
 import { Meal } from "./Meal";
+import DatePicker from "react-date-picker";
 
 interface Props {
   addClicked: (meal: Meal) => void;
@@ -23,8 +24,9 @@ const AddMeal: React.FunctionComponent<Props> = ({ addClicked }) => {
     setNewSide2((e.target as HTMLInputElement).value);
   }
 
-  function updateNewDate(e: ChangeEvent): void {
+  function updateNewDate(date: any): void {
     //setNewMain((e.target as HTMLInputElement).value);
+    setNewDate(date);
   }
 
   function addMealClicked() {
@@ -59,13 +61,7 @@ const AddMeal: React.FunctionComponent<Props> = ({ addClicked }) => {
         aria-label="Side"
         onChange={updateNewSide2}
       ></input>
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Date"
-        aria-label="Date"
-        onChange={updateNewDate}
-      ></input>
+      <DatePicker onChange={date => updateNewDate(date)} value={newDate} />
       <div className="input-group-append">
         <button type="submit" className="button" onClick={addMealClicked}>
           Add
