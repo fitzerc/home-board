@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import MealTable from "./MealTable";
+import AddMeal from "./AddMeal";
+import { Meal } from "./Meal";
 
 function MealsPage() {
-  var meals = [
+  const [meals, addToMeals] = useState<Meal[]>([
     {
       main: "chicken",
       side1: "rice",
@@ -15,12 +17,19 @@ function MealsPage() {
       side2: "breadsticks",
       date: new Date()
     }
-  ];
+  ]);
+
+  function addMeal(meal: Meal) {
+    console.log(meal.main);
+    addToMeals([...meals, meal]);
+  }
 
   return (
     <>
       <h1>Meals</h1>
       <MealTable meals={meals} />
+      <hr />
+      <AddMeal addClicked={addMeal} />
     </>
   );
 }

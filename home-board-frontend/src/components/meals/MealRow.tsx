@@ -9,17 +9,19 @@ interface Props {
 
 const MealRow: React.FunctionComponent<Props> = ({ meal }) => {
   return (
-    <tr>
-      <td>{weekDays[meal.date.getDay()]}</td>
-      <td>{meal.main}</td>
-      <td>{meal.side1}</td>
-      <td>{meal.side2}</td>
-      {false && ( //TODO
-        <td>
-          <DeleteButton />
-        </td>
-      )}
-    </tr>
+    <tbody>
+      <tr>
+        <td>{weekDays[meal.date.getDay()]}</td>
+        <td>{meal.main}</td>
+        <td>{meal.side1}</td>
+        <td>{meal.side2}</td>
+        {false && ( //TODO
+          <td>
+            <DeleteButton />
+          </td>
+        )}
+      </tr>
+    </tbody>
   );
 };
 

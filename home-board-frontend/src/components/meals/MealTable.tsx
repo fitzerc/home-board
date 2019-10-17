@@ -9,14 +9,16 @@ interface Props {
 const MealTable: React.FunctionComponent<Props> = ({ meals }) => {
   return (
     <table className="table table-sm">
-      <tr>
-        <th scope="col">Date</th>
-        <th scope="col">Main</th>
-        <th scope="col">Side</th>
-        <th scope="col">Side</th>
-      </tr>
+      <thead>
+        <tr>
+          <th scope="col">Date</th>
+          <th scope="col">Main</th>
+          <th scope="col">Side</th>
+          <th scope="col">Side</th>
+        </tr>
+      </thead>
       {meals.map(meal => {
-        return <MealRow meal={meal} />;
+        return <MealRow key={meal.main} meal={meal} />;
       })}
     </table>
   );
