@@ -1,26 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import TodoTable from "./TodoTable";
 import AddTodo from "./AddTodo";
-import { Todo } from "./Todo";
+import { connect } from "react-redux";
+import * as todoActions from "../../state/actions/todoActions";
+import { AppState } from "../../state/reducers";
+import { bindActionCreators } from "redux";
 
-function TodoPage() {
-  const [todoList, addToList] = useState<Todo[]>([
-    { item: "fix fence", doDate: new Date() },
-    { item: "mow lawn", doDate: new Date() }
-  ]);
+type props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
-  function addTodo(todo: Todo) {
-    addToList([...todoList, todo]);
-  }
-
+const TodoPage: React.FunctionComponent<props> = props => {
   return (
     <>
       <h1>Todo List</h1>
-      <TodoTable todoItems={todoList} />
+      <TodoTable todoItems={props.todoList} />
       <hr />
-      <AddTodo addClicked={addTodo} />
+      <AddTodo addClicked={todo => props.addTodo(todo)} />
     </>
   );
+};
+
+function mapStateToProps(state: AppState) {
+  return {
+    todoList: state.todos
+  };
 }
 
-export default TodoPage;
+function mapDispatchToProps(dispatch: any) {
+  return {
+    addTodo: bindActionCreators(todoActions.createTodo, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(TodoPage);
