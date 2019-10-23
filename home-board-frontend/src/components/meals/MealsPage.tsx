@@ -2,36 +2,38 @@ import React, { useState } from "react";
 import MealTable from "./MealTable";
 import AddMeal from "./AddMeal";
 import { Meal } from "./Meal";
+import { AppState } from "../../state/reducers";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as mealActions from "../../state/actions/mealActions";
 
-function MealsPage() {
-  const [meals, addToMeals] = useState<Meal[]>([
-    {
-      main: "chicken",
-      side1: "rice",
-      side2: "asparagus",
-      date: new Date()
-    },
-    {
-      main: "pizza",
-      side1: "wings",
-      side2: "breadsticks",
-      date: new Date()
-    }
-  ]);
+type props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
-  function addMeal(meal: Meal) {
-    console.log(meal.main);
-    addToMeals([...meals, meal]);
-  }
-
+const MealsPage: React.FunctionComponent<props> = props => {
   return (
     <>
       <h1>Meals</h1>
-      <MealTable meals={meals} />
+      <MealTable meals={props.meals} />
       <hr />
-      <AddMeal addClicked={addMeal} />
+      <AddMeal addClicked={props.addMeal} />
     </>
   );
+};
+
+function mapStateToProps(state: AppState) {
+  return {
+    meals: state.meals
+  };
 }
 
-export default MealsPage;
+function mapDispatchToProps(dispatch: any) {
+  return {
+    addMeal: bindActionCreators(mealActions.createMeal, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(MealsPage);
