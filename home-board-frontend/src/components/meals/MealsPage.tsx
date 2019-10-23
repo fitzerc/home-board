@@ -1,7 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import MealTable from "./MealTable";
 import AddMeal from "./AddMeal";
-import { Meal } from "./Meal";
 import { AppState } from "../../state/reducers";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";

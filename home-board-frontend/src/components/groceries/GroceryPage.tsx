@@ -1,32 +1,38 @@
-import React, { useState } from "react";
+import React from "react";
 import GroceryTable from "./GroceryTable";
 import AddGroceryItem from "./AddGroceryItem";
-import { Grocery } from "./Grocery";
+import { AppState } from "../../state/reducers";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+import * as groceryActions from "../../state/actions/groceryActions";
 
-function GroceryPage() {
-  const [groceryItems, addToList] = useState<Grocery[]>([
-    {
-      item: "bananas",
-      itemType: "perishable"
-    },
-    {
-      item: "frozen peas",
-      itemType: "frozen"
-    }
-  ]);
+type props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
 
-  function addGroceryItem(item: Grocery) {
-    addToList([...groceryItems, item]);
-  }
-
+const GroceryPage: React.FunctionComponent<props> = props => {
   return (
     <>
       <h1>Grocery List</h1>
-      <GroceryTable groceryItems={groceryItems} />
+      <GroceryTable groceryItems={props.groceries} />
       <hr />
-      <AddGroceryItem addClicked={addGroceryItem} />
+      <AddGroceryItem addClicked={props.addGroceryItem} />
     </>
   );
+};
+
+function mapStateToProps(state: AppState) {
+  return {
+    groceries: state.groceries
+  };
 }
 
-export default GroceryPage;
+function mapDispatchToProps(dispatch: any) {
+  return {
+    addGroceryItem: bindActionCreators(groceryActions.createGrocery, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(GroceryPage);
