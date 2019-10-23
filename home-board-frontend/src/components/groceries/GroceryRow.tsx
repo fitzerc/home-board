@@ -4,19 +4,24 @@ import DeleteButton from "../common/DeleteButton";
 
 interface Props {
   item: Grocery;
+  deleteItem: (item: Grocery) => void;
 }
 
-const GroceryRow: React.FunctionComponent<Props> = ({ item }) => {
+const GroceryRow: React.FunctionComponent<Props> = ({ item, deleteItem }) => {
+  function deleteClicked() {
+    deleteItem(item);
+  }
+
   return (
     <tbody>
       <tr>
         <td>{item.item}</td>
         <td>{item.itemType}</td>
-        {false && ( //TODO
+        {
           <td>
-            <DeleteButton />
+            <DeleteButton deleteClicked={deleteClicked} />
           </td>
-        )}
+        }
       </tr>
     </tbody>
   );

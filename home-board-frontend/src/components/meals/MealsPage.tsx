@@ -13,7 +13,7 @@ const MealsPage: React.FunctionComponent<props> = props => {
   return (
     <>
       <h1>Meals</h1>
-      <MealTable meals={props.meals} />
+      <MealTable meals={props.meals} deleteMeal={props.deleteMeal} />
       <hr />
       <AddMeal addClicked={props.addMeal} />
     </>
@@ -28,7 +28,8 @@ function mapStateToProps(state: AppState) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    addMeal: bindActionCreators(mealActions.createMeal, dispatch)
+    addMeal: bindActionCreators(mealActions.createMeal, dispatch),
+    deleteMeal: bindActionCreators(mealActions.deleteMeal, dispatch)
   };
 }
 

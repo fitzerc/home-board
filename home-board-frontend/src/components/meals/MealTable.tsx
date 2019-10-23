@@ -4,9 +4,10 @@ import MealRow from "./MealRow";
 
 interface Props {
   meals: Meal[];
+  deleteMeal: (meal: Meal) => void;
 }
 
-const MealTable: React.FunctionComponent<Props> = ({ meals }) => {
+const MealTable: React.FunctionComponent<Props> = ({ meals, deleteMeal }) => {
   return (
     <table className="table table-sm">
       <thead>
@@ -18,7 +19,9 @@ const MealTable: React.FunctionComponent<Props> = ({ meals }) => {
         </tr>
       </thead>
       {meals.map(meal => {
-        return <MealRow key={meal.main} meal={meal} />;
+        return (
+          <MealRow key={meal.main} meal={meal} deleteClicked={deleteMeal} />
+        );
       })}
     </table>
   );

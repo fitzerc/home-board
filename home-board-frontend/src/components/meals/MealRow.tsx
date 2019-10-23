@@ -5,9 +5,14 @@ import DeleteButton from "../common/DeleteButton";
 
 interface Props {
   meal: Meal;
+  deleteClicked: (meal: Meal) => void;
 }
 
-const MealRow: React.FunctionComponent<Props> = ({ meal }) => {
+const MealRow: React.FunctionComponent<Props> = ({ meal, deleteClicked }) => {
+  function deleteMeal() {
+    deleteClicked(meal);
+  }
+
   return (
     <tbody>
       <tr>
@@ -15,11 +20,11 @@ const MealRow: React.FunctionComponent<Props> = ({ meal }) => {
         <td>{meal.main}</td>
         <td>{meal.side1}</td>
         <td>{meal.side2}</td>
-        {false && ( //TODO
+        {
           <td>
-            <DeleteButton />
+            <DeleteButton deleteClicked={deleteMeal} />
           </td>
-        )}
+        }
       </tr>
     </tbody>
   );

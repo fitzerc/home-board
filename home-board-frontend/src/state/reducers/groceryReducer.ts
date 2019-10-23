@@ -1,5 +1,9 @@
 import { Grocery } from "../../components/groceries/Grocery";
-import { CreateGroceryAction, CREATE_GROCERY } from "../actions/groceryActions";
+import {
+  GroceryAction,
+  CREATE_GROCERY,
+  DELETE_GROCERY
+} from "../actions/groceryActions";
 
 export default function groceryReducer(
   state: Grocery[] = [
@@ -12,11 +16,13 @@ export default function groceryReducer(
       itemType: "frozen"
     }
   ],
-  action: CreateGroceryAction
+  action: GroceryAction
 ) {
   switch (action.type) {
     case CREATE_GROCERY:
       return [...state, { ...action.payload }];
+    case DELETE_GROCERY:
+      return state.filter(item => item !== action.payload);
     default:
       return state;
   }

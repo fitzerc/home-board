@@ -4,9 +4,13 @@ import TodoRow from "./TodoRow";
 
 interface Props {
   todoItems: Todo[];
+  deleteTodo: (todo: Todo) => void;
 }
 
-const TodoTable: React.FunctionComponent<Props> = ({ todoItems }) => {
+const TodoTable: React.FunctionComponent<Props> = ({
+  todoItems,
+  deleteTodo
+}) => {
   return (
     <table className="table table-sm">
       <thead>
@@ -16,7 +20,7 @@ const TodoTable: React.FunctionComponent<Props> = ({ todoItems }) => {
         </tr>
       </thead>
       {todoItems.map(todo => {
-        return <TodoRow todo={todo} key={todo.item} />;
+        return <TodoRow todo={todo} key={todo.item} deleteTodo={deleteTodo} />;
       })}
     </table>
   );

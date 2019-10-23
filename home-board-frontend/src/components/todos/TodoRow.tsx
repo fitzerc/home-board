@@ -5,19 +5,24 @@ import { weekDays } from "../../utils/DateUtils";
 
 interface Props {
   todo: Todo;
+  deleteTodo: (todo: Todo) => void;
 }
 
-const TodoRow: React.FunctionComponent<Props> = ({ todo }) => {
+const TodoRow: React.FunctionComponent<Props> = ({ todo, deleteTodo }) => {
+  function deleteClicked() {
+    deleteTodo(todo);
+  }
+
   return (
     <tbody>
       <tr>
         <td>{todo.item}</td>
         <td>{weekDays[todo.doDate.getDay()]}</td>
-        {false && ( //TODO
+        {
           <td>
-            <DeleteButton />
+            <DeleteButton deleteClicked={deleteClicked} />
           </td>
-        )}
+        }
       </tr>
     </tbody>
   );

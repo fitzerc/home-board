@@ -13,7 +13,10 @@ const GroceryPage: React.FunctionComponent<props> = props => {
   return (
     <>
       <h1>Grocery List</h1>
-      <GroceryTable groceryItems={props.groceries} />
+      <GroceryTable
+        groceryItems={props.groceries}
+        deleteItem={props.deleteGroceryItem}
+      />
       <hr />
       <AddGroceryItem addClicked={props.addGroceryItem} />
     </>
@@ -28,7 +31,11 @@ function mapStateToProps(state: AppState) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    addGroceryItem: bindActionCreators(groceryActions.createGrocery, dispatch)
+    addGroceryItem: bindActionCreators(groceryActions.createGrocery, dispatch),
+    deleteGroceryItem: bindActionCreators(
+      groceryActions.deleteGrocery,
+      dispatch
+    )
   };
 }
 

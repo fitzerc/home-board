@@ -13,7 +13,7 @@ const TodoPage: React.FunctionComponent<props> = props => {
   return (
     <>
       <h1>Todo List</h1>
-      <TodoTable todoItems={props.todoList} />
+      <TodoTable todoItems={props.todoList} deleteTodo={props.deleteTodo} />
       <hr />
       <AddTodo addClicked={todo => props.addTodo(todo)} />
     </>
@@ -28,7 +28,8 @@ function mapStateToProps(state: AppState) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    addTodo: bindActionCreators(todoActions.createTodo, dispatch)
+    addTodo: bindActionCreators(todoActions.createTodo, dispatch),
+    deleteTodo: bindActionCreators(todoActions.deleteTodo, dispatch)
   };
 }
 
