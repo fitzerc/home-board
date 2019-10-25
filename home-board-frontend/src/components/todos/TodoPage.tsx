@@ -28,7 +28,7 @@ function mapStateToProps(state: AppState) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    addTodo: bindActionCreators(todoActions.createTodo, dispatch),
+    addTodo: bindActionCreators(todoActions.createTodoThunk, dispatch),
     deleteTodo: bindActionCreators(todoActions.deleteTodo, dispatch)
   };
 }
