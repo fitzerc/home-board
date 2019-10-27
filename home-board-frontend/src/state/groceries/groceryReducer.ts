@@ -3,7 +3,7 @@ import {
   GroceryAction,
   CREATE_GROCERY,
   DELETE_GROCERY
-} from "../actions/groceryActions";
+} from "./groceryActions";
 
 export default function groceryReducer(
   state: Grocery[] = [

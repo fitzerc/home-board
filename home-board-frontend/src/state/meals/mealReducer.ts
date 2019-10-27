@@ -1,5 +1,5 @@
 import { Meal } from "../../components/meals/Meal";
-import { MealAction, CREATE_MEAL, DELETE_MEAL } from "../actions/mealActions";
+import { MealAction, CREATE_MEAL, DELETE_MEAL } from "./mealActions";
 
 export default function mealReducer(
   state: Meal[] = [

@@ -1,10 +1,10 @@
 import React from "react";
 import GroceryTable from "./GroceryTable";
 import AddGroceryItem from "./AddGroceryItem";
-import { AppState } from "../../state/reducers";
+import { AppState } from "../../state";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as groceryActions from "../../state/actions/groceryActions";
+import * as groceryActions from "../../state/groceries/groceryActions";
 
 type props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;

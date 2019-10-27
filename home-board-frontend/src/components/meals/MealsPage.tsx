@@ -1,10 +1,10 @@
 import React from "react";
 import MealTable from "./MealTable";
 import AddMeal from "./AddMeal";
-import { AppState } from "../../state/reducers";
+import { AppState } from "../../state";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as mealActions from "../../state/actions/mealActions";
+import * as mealActions from "../../state/meals/mealActions";
 
 type props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;

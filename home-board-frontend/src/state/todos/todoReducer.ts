@@ -1,5 +1,6 @@
 import { Todo } from "../../components/todos/Todo";
-import { TodoAction, CREATE_TODO, DELETE_TODO } from "../actions/todoActions";
+import { CREATE_TODO_SUCCESS, DELETE_TODO } from "./todoActionTypes";
+import TodoAction from "./TodoAction";
 
 export default function todoReducer(
   state: Todo[] = [
@@ -9,7 +10,7 @@ export default function todoReducer(
   action: TodoAction
 ) {
   switch (action.type) {
-    case CREATE_TODO:
+    case CREATE_TODO_SUCCESS:
       return [...state, { ...action.payload }];
     case DELETE_TODO:
       return state.filter(item => item !== action.payload);

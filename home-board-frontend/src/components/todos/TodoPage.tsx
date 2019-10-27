@@ -2,9 +2,9 @@ import React from "react";
 import TodoTable from "./TodoTable";
 import AddTodo from "./AddTodo";
 import { connect } from "react-redux";
-import * as todoActions from "../../state/actions/todoActions";
-import { AppState } from "../../state/reducers";
-import { bindActionCreators } from "redux";
+import * as actionCreator from "../../state/todos/todoActionCreators";
+import { AppState } from "../../state";
+import { bindActionCreators, Dispatch } from "redux";
 
 type props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -26,10 +26,10 @@ function mapStateToProps(state: AppState) {
   };
 }
 
-function mapDispatchToProps(dispatch: any) {
+function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    addTodo: bindActionCreators(todoActions.createTodoThunk, dispatch),
-    deleteTodo: bindActionCreators(todoActions.deleteTodo, dispatch)
+    addTodo: bindActionCreators(actionCreator.createTodo, dispatch),
+    deleteTodo: bindActionCreators(actionCreator.deleteTodo, dispatch)
   };
 }
 
