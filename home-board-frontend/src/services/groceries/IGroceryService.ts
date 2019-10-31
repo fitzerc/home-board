@@ -1,7 +1,7 @@
 import { Grocery } from "../../components/groceries/Grocery";
 
 export default interface IGroceryService {
-  addGroceryItem(item: Grocery): void;
+  addGroceryItem(item: Grocery): Promise<Grocery>;
   deleteGroceryItem(item: Grocery): void;
-  getGroceries(): Grocery[];
+  getGroceries(): Promise<Grocery[]>;
 }

@@ -20,9 +20,7 @@ const GroceryTable: React.FunctionComponent<Props> = ({
         </tr>
       </thead>
       {groceryItems.map(item => {
-        return (
-          <GroceryRow key={item.item} item={item} deleteItem={deleteItem} />
-        );
+        return <GroceryRow key={item.id} item={item} deleteItem={deleteItem} />;
       })}
     </table>
   );

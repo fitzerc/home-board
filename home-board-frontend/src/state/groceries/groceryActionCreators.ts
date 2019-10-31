@@ -26,7 +26,12 @@ export function deleteGrocery(item: Grocery) {
 
 export function getGroceries() {
   return function(dispatch: Dispatch<GroceriesAction>) {
-    return dispatch(getGroceriesSuccess(groceryService.getGroceries()));
+    return groceryService
+      .getGroceries()
+      .then(items => {
+        dispatch(getGroceriesSuccess(items));
+      })
+      .catch(error => console.log(error));
   };
 }
 
