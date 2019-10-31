@@ -1,2 +1,4 @@
 export const CREATE_TODO_SUCCESS = "CREATE_TODO";
 export const DELETE_TODO = "DELETE_TODO";
+export const GET_TODOS_SUCCESS = "GET_TODOS";
+export const GET_TODOS_FAILURES = "GET_TODOS_FAILURES";

@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Todo } from "./Todo";
 import DatePicker from "react-date-picker";
 
@@ -14,29 +14,35 @@ const AddTodo: React.FunctionComponent<Props> = ({ addClicked }) => {
     setNewTodo((e.target as HTMLInputElement).value);
   }
 
-  function addBtnClicked() {
+  function addBtnClicked(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     addClicked({
       item: newTodo,
-      doDate: newDate
+      doDate: newDate.toDateString()
     });
   }
 
   return (
-    <div className="input-group mb-3">
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Todo Item"
-        aria-label="Todo Item"
-        onChange={updateNewTodo}
-      ></input>
-      <DatePicker onChange={date => setNewDate(date as Date)} value={newDate} />
-      <div className="input-group-append">
-        <button type="submit" className="button" onClick={addBtnClicked}>
-          Add
-        </button>
+    <form onSubmit={e => addBtnClicked(e)}>
+      <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Todo Item"
+          aria-label="Todo Item"
+          onChange={updateNewTodo}
+        ></input>
+        <DatePicker
+          onChange={date => setNewDate(date as Date)}
+          value={newDate}
+        />
+        <div className="input-group-append">
+          <button type="submit" className="button">
+            Add
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   );
 };
 

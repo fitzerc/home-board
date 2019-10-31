@@ -1,28 +1,20 @@
 import { Meal } from "../../components/meals/Meal";
-import { MealAction, CREATE_MEAL, DELETE_MEAL } from "./mealActions";
+import {
+  CREATE_MEAL_SUCCESS,
+  DELETE_MEAL_SUCCESS,
+  GET_MEAL_SUCCESS
+} from "./mealActionTypes";
+import { MealAction, MealsAction } from "./mealAction";
+import { Action } from "redux";
 
-export default function mealReducer(
-  state: Meal[] = [
-    {
-      main: "chicken",
-      side1: "rice",
-      side2: "asparagus",
-      date: new Date()
-    },
-    {
-      main: "pizza",
-      side1: "wings",
-      side2: "breadsticks",
-      date: new Date()
-    }
-  ],
-  action: MealAction
-) {
+export default function mealReducer(state: Meal[] = [], action: Action) {
   switch (action.type) {
-    case CREATE_MEAL:
-      return [...state, { ...action.payload }];
-    case DELETE_MEAL:
-      return state.filter(item => item !== action.payload);
+    case CREATE_MEAL_SUCCESS:
+      return [...state, { ...(action as MealAction).payload }];
+    case DELETE_MEAL_SUCCESS:
+      return state.filter(item => item !== (action as MealAction).payload);
+    case GET_MEAL_SUCCESS:
+      return (action as MealsAction).payload;
     default:
       return state;
   }

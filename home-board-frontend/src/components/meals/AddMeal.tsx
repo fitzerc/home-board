@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Meal } from "./Meal";
 import DatePicker from "react-date-picker";
 
@@ -24,7 +24,8 @@ const AddMeal: React.FunctionComponent<Props> = ({ addClicked }) => {
     setNewSide2((e.target as HTMLInputElement).value);
   }
 
-  function addMealClicked() {
+  function addMealClicked(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     addClicked({
       main: newMain,
       side1: newSide1,
@@ -34,35 +35,40 @@ const AddMeal: React.FunctionComponent<Props> = ({ addClicked }) => {
   }
 
   return (
-    <div className="input-group mb-3">
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Main"
-        aria-label="Main"
-        onChange={updateNewMain}
-      ></input>
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Side"
-        aria-label="Side"
-        onChange={updateNewSide1}
-      ></input>
-      <input
-        type="text"
-        className="form-control"
-        placeholder="Side"
-        aria-label="Side"
-        onChange={updateNewSide2}
-      ></input>
-      <DatePicker onChange={date => setNewDate(date as Date)} value={newDate} />
-      <div className="input-group-append">
-        <button type="submit" className="button" onClick={addMealClicked}>
-          Add
-        </button>
+    <form onSubmit={e => addMealClicked(e)}>
+      <div className="input-group mb-3">
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Main"
+          aria-label="Main"
+          onChange={updateNewMain}
+        ></input>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Side"
+          aria-label="Side"
+          onChange={updateNewSide1}
+        ></input>
+        <input
+          type="text"
+          className="form-control"
+          placeholder="Side"
+          aria-label="Side"
+          onChange={updateNewSide2}
+        ></input>
+        <DatePicker
+          onChange={date => setNewDate(date as Date)}
+          value={newDate}
+        />
+        <div className="input-group-append">
+          <button type="submit" className="button">
+            Add
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
   );
 };
 

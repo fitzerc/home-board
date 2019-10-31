@@ -4,7 +4,7 @@ import AddGroceryItem from "./AddGroceryItem";
 import { AppState } from "../../state";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as groceryActions from "../../state/groceries/groceryActions";
+import * as actionCreator from "../../state/groceries/groceryActionCreators";
 
 type props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -31,11 +31,8 @@ function mapStateToProps(state: AppState) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    addGroceryItem: bindActionCreators(groceryActions.createGrocery, dispatch),
-    deleteGroceryItem: bindActionCreators(
-      groceryActions.deleteGrocery,
-      dispatch
-    )
+    addGroceryItem: bindActionCreators(actionCreator.createGrocery, dispatch),
+    deleteGroceryItem: bindActionCreators(actionCreator.deleteGrocery, dispatch)
   };
 }
 

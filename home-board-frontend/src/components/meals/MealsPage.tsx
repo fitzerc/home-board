@@ -4,7 +4,7 @@ import AddMeal from "./AddMeal";
 import { AppState } from "../../state";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import * as mealActions from "../../state/meals/mealActions";
+import * as actionCreators from "../../state/meals/mealActionCreator";
 
 type props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -28,8 +28,8 @@ function mapStateToProps(state: AppState) {
 
 function mapDispatchToProps(dispatch: any) {
   return {
-    addMeal: bindActionCreators(mealActions.createMeal, dispatch),
-    deleteMeal: bindActionCreators(mealActions.deleteMeal, dispatch)
+    addMeal: bindActionCreators(actionCreators.createMeal, dispatch),
+    deleteMeal: bindActionCreators(actionCreators.deleteMeal, dispatch)
   };
 }
 

@@ -20,7 +20,7 @@ const TodoTable: React.FunctionComponent<Props> = ({
         </tr>
       </thead>
       {todoItems.map(todo => {
-        return <TodoRow todo={todo} key={todo.item} deleteTodo={deleteTodo} />;
+        return <TodoRow todo={todo} key={todo.id} deleteTodo={deleteTodo} />;
       })}
     </table>
   );
