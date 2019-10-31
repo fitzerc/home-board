@@ -19,9 +19,7 @@ const MealTable: React.FunctionComponent<Props> = ({ meals, deleteMeal }) => {
         </tr>
       </thead>
       {meals.map(meal => {
-        return (
-          <MealRow key={meal.main} meal={meal} deleteClicked={deleteMeal} />
-        );
+        return <MealRow key={meal.id} meal={meal} deleteClicked={deleteMeal} />;
       })}
     </table>
   );

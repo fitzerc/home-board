@@ -26,7 +26,12 @@ export function deleteMeal(meal: Meal) {
 
 export function getMeals(meal: Meal) {
   return function(dispatch: Dispatch<MealsAction>) {
-    return dispatch(getMealsSuccess(mealService.getMeals()));
+    return mealService
+      .getMeals()
+      .then(meals => {
+        dispatch(getMealsSuccess(meals));
+      })
+      .catch(error => console.log(error));
   };
 }
 
