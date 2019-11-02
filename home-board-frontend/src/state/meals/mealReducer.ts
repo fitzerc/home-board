@@ -1,4 +1,3 @@
-import { Meal } from "../../components/meals/Meal";
 import {
   CREATE_MEAL_SUCCESS,
   DELETE_MEAL_SUCCESS,
@@ -6,8 +5,12 @@ import {
 } from "./mealActionTypes";
 import { MealAction, MealsAction } from "./mealAction";
 import { Action } from "redux";
+import initialState from "../initialState";
 
-export default function mealReducer(state: Meal[] = [], action: Action) {
+export default function mealReducer(
+  state = initialState.meals,
+  action: Action
+) {
   switch (action.type) {
     case CREATE_MEAL_SUCCESS:
       return [...state, { ...(action as MealAction).payload }];

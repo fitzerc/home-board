@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import MealTable from "./MealTable";
 import AddMeal from "./AddMeal";
 import { AppState } from "../../state";
@@ -10,6 +10,10 @@ type props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 const MealsPage: React.FunctionComponent<props> = props => {
+  useEffect(() => {
+    props.getMeals();
+  }, []);
+
   return (
     <>
       <h1>Meals</h1>
@@ -29,7 +33,8 @@ function mapStateToProps(state: AppState) {
 function mapDispatchToProps(dispatch: any) {
   return {
     addMeal: bindActionCreators(actionCreators.createMeal, dispatch),
-    deleteMeal: bindActionCreators(actionCreators.deleteMeal, dispatch)
+    deleteMeal: bindActionCreators(actionCreators.deleteMeal, dispatch),
+    getMeals: bindActionCreators(actionCreators.getMeals, dispatch)
   };
 }
 

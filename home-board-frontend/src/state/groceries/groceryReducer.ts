@@ -1,4 +1,3 @@
-import { Grocery } from "../../components/groceries/Grocery";
 import {
   CREATE_GROCERY_SUCCESS,
   DELETE_GROCERY_SUCCESS,
@@ -6,8 +5,12 @@ import {
 } from "./groceryActionTypes";
 import { GroceryAction, GroceriesAction } from "./groceryActions";
 import { Action } from "redux";
+import initialState from "../initialState";
 
-export default function groceryReducer(state: Grocery[] = [], action: Action) {
+export default function groceryReducer(
+  state = initialState.groceries,
+  action: Action
+) {
   switch (action.type) {
     case CREATE_GROCERY_SUCCESS:
       return [...state, { ...(action as GroceryAction).payload }];

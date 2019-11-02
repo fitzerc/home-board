@@ -33,7 +33,7 @@ export function getTodos() {
       .then(todos => {
         dispatch(getTodosSuccess(todos));
       })
-      .catch(error => dispatch(getTodosFailure(error)));
+      .catch(error => console.log(error));
   };
 }
 

@@ -1,4 +1,3 @@
-import { Todo } from "../../components/todos/Todo";
 import {
   CREATE_TODO_SUCCESS,
   DELETE_TODO,
@@ -7,8 +6,12 @@ import {
 } from "./todoActionTypes";
 import { TodoAction, TodosAction } from "./TodoAction";
 import { Action } from "redux";
+import initialState from "../initialState";
 
-export default function todoReducer(state: Todo[] = [], action: Action) {
+export default function todoReducer(
+  state = initialState.todos,
+  action: Action
+) {
   switch (action.type) {
     case CREATE_TODO_SUCCESS:
       return [...state, { ...(action as TodoAction).payload }];

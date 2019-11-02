@@ -24,7 +24,7 @@ export function deleteMeal(meal: Meal) {
   };
 }
 
-export function getMeals(meal: Meal) {
+export function getMeals() {
   return function(dispatch: Dispatch<MealsAction>) {
     return mealService
       .getMeals()

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import GroceryTable from "./GroceryTable";
 import AddGroceryItem from "./AddGroceryItem";
 import { AppState } from "../../state";
@@ -10,6 +10,10 @@ type props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 const GroceryPage: React.FunctionComponent<props> = props => {
+  useEffect(() => {
+    props.getGroceries();
+  }, []);
+
   return (
     <>
       <h1>Grocery List</h1>
@@ -32,7 +36,11 @@ function mapStateToProps(state: AppState) {
 function mapDispatchToProps(dispatch: any) {
   return {
     addGroceryItem: bindActionCreators(actionCreator.createGrocery, dispatch),
-    deleteGroceryItem: bindActionCreators(actionCreator.deleteGrocery, dispatch)
+    deleteGroceryItem: bindActionCreators(
+      actionCreator.deleteGrocery,
+      dispatch
+    ),
+    getGroceries: bindActionCreators(actionCreator.getGroceries, dispatch)
   };
 }
 

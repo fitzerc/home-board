@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import TodoTable from "./TodoTable";
 import AddTodo from "./AddTodo";
 import { connect } from "react-redux";
@@ -10,6 +10,10 @@ type props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
 
 const TodoPage: React.FunctionComponent<props> = props => {
+  useEffect(() => {
+    props.getTodos();
+  }, []);
+
   return (
     <>
       <h1>Todo List</h1>
@@ -29,6 +33,7 @@ function mapStateToProps(state: AppState) {
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
     addTodo: bindActionCreators(actionCreator.createTodo, dispatch),
+    getTodos: bindActionCreators(actionCreator.getTodos, dispatch),
     deleteTodo: bindActionCreators(actionCreator.deleteTodo, dispatch)
   };
 }
