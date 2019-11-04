@@ -16,8 +16,8 @@ export default class MockTodoService implements ITodoService {
   getTodos(): Promise<Todo[]> {
     return new Promise<Todo[]>((resolve, reject) => {
       resolve([
-        { id: 1, item: "fixx fence", doDate: new Date().toDateString() },
-        { id: 2, item: "moww lawn", doDate: new Date().toDateString() }
+        { id: "1", item: "fixx fence", doDate: new Date().toDateString() },
+        { id: "2", item: "moww lawn", doDate: new Date().toDateString() }
       ]);
     });
   }

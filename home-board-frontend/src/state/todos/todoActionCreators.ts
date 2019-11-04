@@ -8,8 +8,23 @@ import {
 } from "./todoActionTypes";
 import { TodoAction, TodosAction } from "./TodoAction";
 import { GetTodoService } from "../../services/ServiceProvider";
+import MockTodoService from "../../services/todos/MockTodoService";
+import { firestore } from "firebase";
+import FirebaseTodoService from "../../services/todos/FirebaseTodoService";
+
+const firebase = require("firebase");
+
+// Initialize Cloud Firestore through Firebase
+firebase.initializeApp({
+  apiKey: "",
+  authDomain: "",
+  projectId: ""
+});
+
+var db = firebase.firestore();
 
 const todoService = GetTodoService();
+const firebaseService = new FirebaseTodoService(db);
 
 export function createTodo(todo: Todo) {
   return function(dispatch: Dispatch<TodoAction>) {
@@ -27,13 +42,25 @@ export function deleteTodo(todo: Todo) {
 }
 
 export function getTodos() {
+  let newTodos: Todo[] = [];
   return function(dispatch: Dispatch<TodosAction>) {
-    return todoService
-      .getTodos()
-      .then(todos => {
-        dispatch(getTodosSuccess(todos));
-      })
-      .catch(error => console.log(error));
+    return firebaseService.getTodos().then(snap => {
+      snap.forEach(doc => {
+        doc.ref
+          .collection("todos")
+          .get()
+          .then(todos => {
+            todos.forEach(todo => {
+              newTodos.push({
+                id: todo.id,
+                item: todo.data().item,
+                doDate: todo.data().doDate
+              });
+            });
+            return dispatch(getTodosSuccess(newTodos));
+          });
+      });
+    });
   };
 }
 

@@ -11,6 +11,7 @@ import MockMealService from "./meals/MockMealService";
 const environment: string = "mock";
 export const apiUrl: string = "https://localhost:44368/api/";
 //const environment = "api";
+//const environment = "firebase";
 
 export function GetTodoService(): ITodoService {
   if (environment === "database") {
