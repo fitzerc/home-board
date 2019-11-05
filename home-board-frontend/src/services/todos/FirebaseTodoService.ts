@@ -5,7 +5,7 @@ export default class FirebaseTodoService {
 
   getTodos() {
     return this.db
-      .collection("home-board")
+      .collection("todos")
       .get()
       .then(querySnapshot => {
         return querySnapshot;

@@ -15,11 +15,7 @@ import FirebaseTodoService from "../../services/todos/FirebaseTodoService";
 const firebase = require("firebase");
 
 // Initialize Cloud Firestore through Firebase
-firebase.initializeApp({
-  apiKey: "",
-  authDomain: "",
-  projectId: ""
-});
+firebase.initializeApp({});
 
 var db = firebase.firestore();
 
@@ -42,24 +38,19 @@ export function deleteTodo(todo: Todo) {
 }
 
 export function getTodos() {
-  let newTodos: Todo[] = [];
   return function(dispatch: Dispatch<TodosAction>) {
-    return firebaseService.getTodos().then(snap => {
-      snap.forEach(doc => {
-        doc.ref
-          .collection("todos")
-          .get()
-          .then(todos => {
-            todos.forEach(todo => {
-              newTodos.push({
-                id: todo.id,
-                item: todo.data().item,
-                doDate: todo.data().doDate
-              });
-            });
-            return dispatch(getTodosSuccess(newTodos));
-          });
-      });
+    return firebaseService.getTodos().then(todos => {
+      return dispatch(
+        getTodosSuccess(
+          todos.docs.map(todo => {
+            return {
+              id: todo.id,
+              item: todo.data().item,
+              doDate: todo.data().doDate
+            };
+          })
+        )
+      );
     });
   };
 }
