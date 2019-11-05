@@ -24,15 +24,24 @@ const firebaseService = new FirebaseTodoService(db);
 
 export function createTodo(todo: Todo) {
   return function(dispatch: Dispatch<TodoAction>) {
-    todoService.addTodo(todo).then(newTodo => {
-      return dispatch(createTodoSuccess(newTodo));
-    });
+    firebaseService
+      .addTodo(todo)
+      .then(docRef => {
+        return dispatch(
+          createTodoSuccess({
+            id: docRef.id,
+            item: todo.item,
+            doDate: todo.doDate
+          })
+        );
+      })
+      .catch(e => console.log(e));
   };
 }
 
 export function deleteTodo(todo: Todo) {
   return function(dispatch: Dispatch<TodoAction>) {
-    todoService.deleteTodo(todo);
+    firebaseService.deleteTodo(todo);
     return dispatch(deleteTodoSuccess(todo));
   };
 }
