@@ -7,20 +7,13 @@ import {
   GET_TODOS_FAILURES
 } from "./todoActionTypes";
 import { TodoAction, TodosAction } from "./TodoAction";
-import { GetTodoService } from "../../services/ServiceProvider";
-import MockTodoService from "../../services/todos/MockTodoService";
-import { firestore } from "firebase";
-import FirebaseTodoService from "../../services/todos/FirebaseTodoService";
-
-const firebase = require("firebase");
-
-// Initialize Cloud Firestore through Firebase
-firebase.initializeApp({});
-
-var db = firebase.firestore();
+import {
+  GetTodoService,
+  GetFirebaseService
+} from "../../services/ServiceProvider";
 
 const todoService = GetTodoService();
-const firebaseService = new FirebaseTodoService(db);
+const firebaseService = GetFirebaseService();
 
 export function createTodo(todo: Todo) {
   return function(dispatch: Dispatch<TodoAction>) {
@@ -48,18 +41,8 @@ export function deleteTodo(todo: Todo) {
 
 export function getTodos() {
   return function(dispatch: Dispatch<TodosAction>) {
-    return firebaseService.getTodos().then(todos => {
-      return dispatch(
-        getTodosSuccess(
-          todos.docs.map(todo => {
-            return {
-              id: todo.id,
-              item: todo.data().item,
-              doDate: todo.data().doDate
-            };
-          })
-        )
-      );
+    firebaseService.promiseTodos().then(todos => {
+      return dispatch(getTodosSuccess(todos));
     });
   };
 }

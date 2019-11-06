@@ -21,4 +21,23 @@ export default class FirebaseTodoService {
     const todoRef = this.db.collection("todos").doc(todo.id);
     todoRef.delete();
   }
+
+  promiseTodos(): Promise<Todo[]> {
+    return this.db
+      .collection("todos")
+      .get()
+      .then(todos => {
+        return new Promise<Todo[]>((resolve, reject) => {
+          resolve(
+            todos.docs.map(todo => {
+              return {
+                id: todo.id,
+                item: todo.data().item,
+                doDate: todo.data().doDate
+              };
+            })
+          );
+        });
+      });
+  }
 }

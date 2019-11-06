@@ -7,6 +7,8 @@ import ApiGroceryService from "./groceries/ApiGroceryService";
 import IMealService from "./meals/IMealService";
 import ApiMealService from "./meals/ApiMealService";
 import MockMealService from "./meals/MockMealService";
+import firebase from "firebase";
+import FirebaseTodoService from "./todos/FirebaseTodoService";
 
 const environment: string = "mock";
 export const apiUrl: string = "https://localhost:44368/api/";
@@ -16,7 +18,9 @@ export const apiUrl: string = "https://localhost:44368/api/";
 export function GetTodoService(): ITodoService {
   if (environment === "database") {
     return new ApiTodoService();
-  } else return new MockTodoService();
+  } /*else if (environment === "firebase") {
+  }*/ else
+    return new MockTodoService();
 }
 
 export function GetGroceryService(): IGroceryService {
@@ -29,4 +33,9 @@ export function GetMealService(): IMealService {
   if (environment === "database") {
     return new ApiMealService();
   } else return new MockMealService();
+}
+
+export function GetFirebaseService() {
+  var db = firebase.initializeApp({}).firestore();
+  return new FirebaseTodoService(db);
 }
