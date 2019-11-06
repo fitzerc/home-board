@@ -1,20 +1,23 @@
 import { firestore } from "firebase";
 import { Todo } from "../../components/todos/Todo";
+import ITodoService from "./ITodoService";
 
-export default class FirebaseTodoService {
+export default class FirebaseTodoService implements ITodoService {
   constructor(private db: firestore.Firestore) {}
 
-  getTodos() {
+  addTodo(todo: Todo): Promise<Todo> {
     return this.db
       .collection("todos")
-      .get()
-      .then(querySnapshot => {
-        return querySnapshot;
+      .add(todo)
+      .then(ref => {
+        return new Promise<Todo>((resolve, reject) => {
+          resolve({
+            id: ref.id,
+            item: todo.item,
+            doDate: todo.doDate
+          });
+        });
       });
-  }
-
-  addTodo(todo: Todo) {
-    return this.db.collection("todos").add(todo);
   }
 
   deleteTodo(todo: Todo) {
@@ -22,7 +25,7 @@ export default class FirebaseTodoService {
     todoRef.delete();
   }
 
-  promiseTodos(): Promise<Todo[]> {
+  getTodos(): Promise<Todo[]> {
     return this.db
       .collection("todos")
       .get()

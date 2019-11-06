@@ -18,9 +18,10 @@ export const apiUrl: string = "https://localhost:44368/api/";
 export function GetTodoService(): ITodoService {
   if (environment === "database") {
     return new ApiTodoService();
-  } /*else if (environment === "firebase") {
-  }*/ else
-    return new MockTodoService();
+  } else if (environment === "firebase") {
+    var db = firebase.initializeApp({}).firestore();
+    return new FirebaseTodoService(db);
+  } else return new MockTodoService();
 }
 
 export function GetGroceryService(): IGroceryService {
@@ -33,9 +34,4 @@ export function GetMealService(): IMealService {
   if (environment === "database") {
     return new ApiMealService();
   } else return new MockMealService();
-}
-
-export function GetFirebaseService() {
-  var db = firebase.initializeApp({}).firestore();
-  return new FirebaseTodoService(db);
 }

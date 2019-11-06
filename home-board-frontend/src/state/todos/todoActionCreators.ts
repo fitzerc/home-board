@@ -7,41 +7,28 @@ import {
   GET_TODOS_FAILURES
 } from "./todoActionTypes";
 import { TodoAction, TodosAction } from "./TodoAction";
-import {
-  GetTodoService,
-  GetFirebaseService
-} from "../../services/ServiceProvider";
+import { GetTodoService } from "../../services/ServiceProvider";
 
 const todoService = GetTodoService();
-const firebaseService = GetFirebaseService();
 
 export function createTodo(todo: Todo) {
   return function(dispatch: Dispatch<TodoAction>) {
-    firebaseService
-      .addTodo(todo)
-      .then(docRef => {
-        return dispatch(
-          createTodoSuccess({
-            id: docRef.id,
-            item: todo.item,
-            doDate: todo.doDate
-          })
-        );
-      })
-      .catch(e => console.log(e));
+    todoService.addTodo(todo).then(todo => {
+      return dispatch(createTodoSuccess(todo));
+    });
   };
 }
 
 export function deleteTodo(todo: Todo) {
   return function(dispatch: Dispatch<TodoAction>) {
-    firebaseService.deleteTodo(todo);
+    todoService.deleteTodo(todo);
     return dispatch(deleteTodoSuccess(todo));
   };
 }
 
 export function getTodos() {
   return function(dispatch: Dispatch<TodosAction>) {
-    firebaseService.promiseTodos().then(todos => {
+    todoService.getTodos().then(todos => {
       return dispatch(getTodosSuccess(todos));
     });
   };
