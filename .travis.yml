@@ -7,7 +7,7 @@ cache:
 script:
   - cd home-board-frontend
   - npm install
-  - npm test
+  - npm install firebase
   - npm run build
 on:
   branch: master
