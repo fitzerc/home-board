@@ -20,13 +20,17 @@ const AddTodo: React.FunctionComponent<Props> = ({ addClicked }) => {
       item: newTodo,
       doDate: newDate.toDateString()
     });
+    setNewTodo("");
+    setNewDate(new Date());
+    (document.getElementById("input") as HTMLInputElement).value = "";
   }
 
   return (
-    <form onSubmit={e => addBtnClicked(e)}>
+    <form id="create-course-form" onSubmit={e => addBtnClicked(e)}>
       <div className="input-group mb-3">
         <input
           type="text"
+          id="input"
           className="form-control"
           placeholder="Todo Item"
           aria-label="Todo Item"

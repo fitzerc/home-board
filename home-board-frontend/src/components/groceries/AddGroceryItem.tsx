@@ -23,6 +23,10 @@ const AddGroceryItem: React.FunctionComponent<Props> = ({ addClicked }) => {
       item: newItem,
       itemType: newItemType
     });
+    setNewItem("");
+    setNewItemType("");
+    (document.getElementById("item") as HTMLInputElement).value = "";
+    (document.getElementById("itemType") as HTMLInputElement).value = "";
   }
 
   return (
@@ -31,6 +35,7 @@ const AddGroceryItem: React.FunctionComponent<Props> = ({ addClicked }) => {
         <input
           type="text"
           className="form-control"
+          id="item"
           placeholder="Grocery Item"
           aria-label="Grocery Item"
           onChange={updateNewItem}
@@ -38,6 +43,7 @@ const AddGroceryItem: React.FunctionComponent<Props> = ({ addClicked }) => {
         <input
           type="text"
           className="form-control"
+          id="itemType"
           placeholder="Grocery Item Type"
           aria-label="Grocery Item Type"
           onChange={updateNewItemType}

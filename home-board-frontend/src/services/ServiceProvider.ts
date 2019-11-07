@@ -7,31 +7,50 @@ import ApiGroceryService from "./groceries/ApiGroceryService";
 import IMealService from "./meals/IMealService";
 import ApiMealService from "./meals/ApiMealService";
 import MockMealService from "./meals/MockMealService";
-import firebase from "firebase";
 import FirebaseTodoService from "./todos/FirebaseTodoService";
+import FirebaseGroceryService from "./groceries/FirebaseGroceryService";
+import FirebaseMealService from "./meals/FirebaseMealService";
+import { db } from "./FirestoreDb";
 
-const environment: string = "mock";
 export const apiUrl: string = "https://localhost:44368/api/";
-//const environment = "api";
-//const environment = "firebase";
+
+enum env {
+  database,
+  firebase,
+  mock
+}
+
+const environment = env.firebase;
 
 export function GetTodoService(): ITodoService {
-  if (environment === "database") {
-    return new ApiTodoService();
-  } else if (environment === "firebase") {
-    var db = firebase.initializeApp({}).firestore();
-    return new FirebaseTodoService(db);
-  } else return new MockTodoService();
+  switch (+environment) {
+    case env.database:
+      return new ApiTodoService();
+    case env.firebase:
+      return new FirebaseTodoService(db);
+    default:
+      return new MockTodoService();
+  }
 }
 
 export function GetGroceryService(): IGroceryService {
-  if (environment === "database") {
-    return new ApiGroceryService();
-  } else return new MockGroceryService();
+  switch (+environment) {
+    case env.database:
+      return new ApiGroceryService();
+    case env.firebase:
+      return new FirebaseGroceryService(db);
+    default:
+      return new MockGroceryService();
+  }
 }
 
 export function GetMealService(): IMealService {
-  if (environment === "database") {
-    return new ApiMealService();
-  } else return new MockMealService();
+  switch (+environment) {
+    case env.database:
+      return new ApiMealService();
+    case env.firebase:
+      return new FirebaseMealService(db);
+    default:
+      return new MockMealService();
+  }
 }

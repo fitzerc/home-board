@@ -5,8 +5,8 @@ export default class MockGroceryService implements IGroceryService {
   getGroceries(): Promise<Grocery[]> {
     return new Promise<Grocery[]>((resolve, reject) => {
       resolve([
-        { id: 1, item: "bananas", itemType: "perishable" },
-        { id: 2, item: "frozen peas", itemType: "frozen" }
+        { id: "1", item: "bananas", itemType: "perishable" },
+        { id: "2", item: "frozen peas", itemType: "frozen" }
       ]);
     });
   }

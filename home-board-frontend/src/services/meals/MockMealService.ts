@@ -6,16 +6,18 @@ export default class MockMealService implements IMealService {
     return new Promise<Meal[]>((resolve, reject) => {
       resolve([
         {
+          id: "1",
           main: "chicken",
           side1: "rice",
           side2: "asparagus",
-          date: new Date()
+          date: new Date().toDateString()
         },
         {
+          id: "2",
           main: "pizza",
           side1: "wings",
           side2: "breadsticks",
-          date: new Date()
+          date: new Date().toDateString()
         }
       ]);
     });

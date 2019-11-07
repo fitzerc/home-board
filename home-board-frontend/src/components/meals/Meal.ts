@@ -1,7 +1,7 @@
 export interface Meal {
-  id?: number;
+  id?: string;
   main: string;
   side1: string;
   side2: string;
-  date: Date;
+  date: string;
 }

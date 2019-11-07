@@ -30,8 +30,14 @@ const AddMeal: React.FunctionComponent<Props> = ({ addClicked }) => {
       main: newMain,
       side1: newSide1,
       side2: newSide2,
-      date: newDate
+      date: newDate.toDateString()
     });
+    (document.getElementById("main") as HTMLInputElement).value = "";
+    (document.getElementById("side1") as HTMLInputElement).value = "";
+    (document.getElementById("side2") as HTMLInputElement).value = "";
+    setNewMain("");
+    setNewSide1("");
+    setNewSide2("");
   }
 
   return (
@@ -40,6 +46,7 @@ const AddMeal: React.FunctionComponent<Props> = ({ addClicked }) => {
         <input
           type="text"
           className="form-control"
+          id="main"
           placeholder="Main"
           aria-label="Main"
           onChange={updateNewMain}
@@ -47,12 +54,14 @@ const AddMeal: React.FunctionComponent<Props> = ({ addClicked }) => {
         <input
           type="text"
           className="form-control"
+          id="side1"
           placeholder="Side"
           aria-label="Side"
           onChange={updateNewSide1}
         ></input>
         <input
           type="text"
+          id="side2"
           className="form-control"
           placeholder="Side"
           aria-label="Side"

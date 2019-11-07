@@ -24,13 +24,13 @@ const TodoPage: React.FunctionComponent<props> = props => {
   );
 };
 
-function mapStateToProps(state: AppState) {
+export function mapStateToProps(state: AppState) {
   return {
     todoList: state.todos
   };
 }
 
-function mapDispatchToProps(dispatch: Dispatch) {
+export function mapDispatchToProps(dispatch: Dispatch) {
   return {
     addTodo: bindActionCreators(actionCreator.createTodo, dispatch),
     getTodos: bindActionCreators(actionCreator.getTodos, dispatch),
