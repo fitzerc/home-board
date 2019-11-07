@@ -5,6 +5,7 @@ cache:
   directories:
     - node_modules
 script:
+  - cd home-board-client
   - npm test
   - npm run build
 on:
