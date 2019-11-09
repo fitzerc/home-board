@@ -26,7 +26,7 @@ const AddTodo: React.FunctionComponent<Props> = ({ addClicked }) => {
   }
 
   return (
-    <form id="create-course-form" onSubmit={e => addBtnClicked(e)}>
+    <form onSubmit={e => addBtnClicked(e)}>
       <div className="input-group mb-3">
         <input
           type="text"
