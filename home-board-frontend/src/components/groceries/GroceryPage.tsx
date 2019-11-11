@@ -5,6 +5,7 @@ import { AppState } from "../../state";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreator from "../../state/groceries/groceryActionCreators";
+import { Grocery } from "./Grocery";
 
 type props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -14,22 +15,41 @@ const GroceryPage: React.FunctionComponent<props> = props => {
     props.getGroceries();
   }, []);
 
+  function addGroceryItem(item: Grocery) {
+    if (!props.authenticated) {
+      alert("must be signed in");
+      return;
+    }
+
+    props.addGroceryItem(item);
+  }
+
+  function deleteGroceryItem(item: Grocery) {
+    if (!props.authenticated) {
+      alert("must be signed in");
+      return;
+    }
+
+    props.deleteGroceryItem(item);
+  }
+
   return (
     <>
       <h1>Grocery List</h1>
       <GroceryTable
         groceryItems={props.groceries}
-        deleteItem={props.deleteGroceryItem}
+        deleteItem={deleteGroceryItem}
       />
       <hr />
-      <AddGroceryItem addClicked={props.addGroceryItem} />
+      <AddGroceryItem addClicked={addGroceryItem} />
     </>
   );
 };
 
 function mapStateToProps(state: AppState) {
   return {
-    groceries: state.groceries
+    groceries: state.groceries,
+    authenticated: state.authenticated
   };
 }
 

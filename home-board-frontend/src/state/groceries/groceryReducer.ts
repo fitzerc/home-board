@@ -15,7 +15,6 @@ export default function groceryReducer(
     case CREATE_GROCERY_SUCCESS:
       return [...state, { ...(action as GroceryAction).payload }];
     case DELETE_GROCERY_SUCCESS:
-      console.log("in switch");
       return state.filter(item => item !== (action as GroceryAction).payload);
     case GET_GROCERIES_SUCCESS:
       return (action as GroceriesAction).payload;

@@ -28,4 +28,8 @@ export default class AuthService {
       resolve(user != null);
     });
   }
+
+  getCurrentUser() {
+    return auth().currentUser;
+  }
 }

@@ -6,7 +6,12 @@ const fb = firebase.initializeApp({
   projectId: "home-board-d6ef8"
 });
 export const db = fb.firestore();
-export const auth = fb.auth();
+
+export function getUser() {
+  const user = fb.auth().currentUser;
+  console.log(user);
+  return user;
+}
 
 export function signin() {
   const provider = new firebase.auth.GoogleAuthProvider();

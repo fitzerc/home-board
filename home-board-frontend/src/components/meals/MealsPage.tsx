@@ -5,6 +5,7 @@ import { AppState } from "../../state";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreators from "../../state/meals/mealActionCreator";
+import { Meal } from "./Meal";
 
 type props = ReturnType<typeof mapStateToProps> &
   ReturnType<typeof mapDispatchToProps>;
@@ -14,19 +15,38 @@ const MealsPage: React.FunctionComponent<props> = props => {
     props.getMeals();
   }, []);
 
+  function addMeal(meal: Meal) {
+    if (!props.authenticated) {
+      alert("must be signed in");
+      return;
+    }
+
+    props.addMeal(meal);
+  }
+
+  function deleteMeal(meal: Meal) {
+    if (!props.authenticated) {
+      alert("must be signed in");
+      return;
+    }
+
+    props.deleteMeal(meal);
+  }
+
   return (
     <>
       <h1>Meals</h1>
-      <MealTable meals={props.meals} deleteMeal={props.deleteMeal} />
+      <MealTable meals={props.meals} deleteMeal={deleteMeal} />
       <hr />
-      <AddMeal addClicked={props.addMeal} />
+      <AddMeal addClicked={addMeal} />
     </>
   );
 };
 
 function mapStateToProps(state: AppState) {
   return {
-    meals: state.meals
+    meals: state.meals,
+    authenticated: state.authenticated
   };
 }
 
