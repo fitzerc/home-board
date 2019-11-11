@@ -1,32 +1,16 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { auth } from "firebase";
+import { Dispatch, bindActionCreators } from "redux";
+import * as actionCeator from "../../state/auth/authActionCreator";
+import { AppState } from "../../state";
+import { connect } from "react-redux";
 
-function Header() {
+type props = ReturnType<typeof mapStateToProps> &
+  ReturnType<typeof mapDispatchToProps>;
+
+const Header: React.FunctionComponent<props> = props => {
   const activeStyle = { color: "orange" };
-
-  function signin() {
-    const provider = new auth.GoogleAuthProvider();
-    auth()
-      .signInWithPopup(provider)
-      .then(function(result) {
-        // This gives you a Google Access Token. You can use it to access the Google API.
-        //var token = result.credential.accessToken;
-        // The signed-in user info.
-        var user = result.user;
-        // ...
-      })
-      .catch(function(error) {
-        // Handle Errors here.
-        var errorCode = error.code;
-        var errorMessage = error.message;
-        // The email of the user's account used.
-        var email = error.email;
-        // The firebase.auth.AuthCredential type that was used.
-        var credential = error.credential;
-        // ...
-      });
-  }
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -57,13 +41,28 @@ function Header() {
           </li>
         </ul>
         <ul className="navbar-nav">
-          <a href="#" onClick={() => signin()}>
-            login
+          <a href="#" onClick={() => props.signIn()}>
+            {props.authenticated ? "Logout" : "Login"}
           </a>
         </ul>
       </div>
     </nav>
   );
+};
+
+export function mapStateToProps(state: AppState) {
+  return {
+    authenticated: state.authenticated
+  };
 }
 
-export default Header;
+function mapDispatchToProps(dispatch: Dispatch) {
+  return {
+    signIn: bindActionCreators(actionCeator.signIn, dispatch)
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Header);

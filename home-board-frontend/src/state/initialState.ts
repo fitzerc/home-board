@@ -5,5 +5,6 @@ import { Grocery } from "../components/groceries/Grocery";
 export default {
   todos: [] as Todo[],
   meals: [] as Meal[],
-  groceries: [] as Grocery[]
+  groceries: [] as Grocery[],
+  authenticated: false
 };
