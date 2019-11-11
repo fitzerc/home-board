@@ -1,12 +1,9 @@
 import { AuthAction } from "./authActions";
-import MockAuthService from "../../services/auth/MockAuthService";
 import { Dispatch } from "redux";
 import { SIGNON } from "./authActionTypes";
-import AuthService from "../../services/auth/AuthService";
-import { getUser } from "../../services/FirestoreDb";
-import { auth } from "firebase";
+import { GetAuthService } from "../../services/ServiceProvider";
 
-const authService = new AuthService();
+const authService = GetAuthService();
 
 export function signIn() {
   return function(dispatch: Dispatch<AuthAction>) {
@@ -18,12 +15,8 @@ export function signIn() {
 
 export function checkCurrentUser() {
   return function(dispatch: Dispatch<AuthAction>) {
-    auth().onAuthStateChanged(function(user) {
-      if (user) {
-        return dispatch(signInSuccess(true));
-      } else {
-        return dispatch(signInSuccess(false));
-      }
+    authService.authStateChanged.on("auth", user => {
+      return dispatch(signInSuccess(user != null));
     });
   };
 }

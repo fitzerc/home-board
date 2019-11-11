@@ -1,7 +1,13 @@
 import { auth } from "firebase";
+import { EventEmitter } from "events";
+import BaseAuthService from "./BaseAuthService";
 
-export default class AuthService {
-  constructor() {}
+export default class AuthService extends BaseAuthService {
+  constructor() {
+    super();
+  }
+
+  public authStateChanged = new EventEmitter();
 
   signIn(): Promise<boolean> {
     const user = auth()
@@ -30,9 +36,12 @@ export default class AuthService {
   }
 
   getCurrentUser() {
-    const authObj = auth();
-    return new Promise((resolve, reject) => {
-      resolve(authObj.currentUser);
+    auth().onAuthStateChanged(user => {
+      if (user) {
+        this.authStateChanged.emit("auth", true);
+      }
+
+      this.authStateChanged.emit("auth", false);
     });
   }
 }

@@ -11,6 +11,9 @@ import FirebaseTodoService from "./todos/FirebaseTodoService";
 import FirebaseGroceryService from "./groceries/FirebaseGroceryService";
 import FirebaseMealService from "./meals/FirebaseMealService";
 import { db } from "./FirestoreDb";
+import BaseAuthService from "./auth/BaseAuthService";
+import MockAuthService from "./auth/MockAuthService";
+import AuthService from "./auth/AuthService";
 
 export const apiUrl: string = "https://localhost:44368/api/";
 
@@ -52,5 +55,16 @@ export function GetMealService(): IMealService {
       return new FirebaseMealService(db);
     default:
       return new MockMealService();
+  }
+}
+
+export function GetAuthService(): BaseAuthService {
+  switch (+environment) {
+    case env.database:
+      return new MockAuthService();
+    case env.firebase:
+      return new AuthService();
+    default:
+      return new MockAuthService();
   }
 }
