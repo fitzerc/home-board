@@ -7,5 +7,6 @@ export default abstract class BaseAuthService {
 
   authStateChanged = new EventEmitter();
   abstract signIn(): Promise<boolean>;
+  abstract signOut(): Promise<boolean>;
   abstract getCurrentUser(): void;
 }

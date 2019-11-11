@@ -15,6 +15,15 @@ const Header: React.FunctionComponent<props> = props => {
     props.checkCurrentUser();
   }, []);
 
+  function handleAuth() {
+    if (props.authenticated) {
+      props.signOut();
+      return;
+    } else {
+      props.signIn();
+    }
+  }
+
   return (
     <nav className="navbar navbar-expand-lg">
       <div className="navbar-collapse">
@@ -44,7 +53,7 @@ const Header: React.FunctionComponent<props> = props => {
           </li>
         </ul>
         <ul className="navbar-nav">
-          <a href="#" onClick={() => props.signIn()}>
+          <a href="#" onClick={() => handleAuth()}>
             {props.authenticated ? "Logout" : "Login"}
           </a>
         </ul>
@@ -62,6 +71,7 @@ export function mapStateToProps(state: AppState) {
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
     signIn: bindActionCreators(actionCeator.signIn, dispatch),
+    signOut: bindActionCreators(actionCeator.signOut, dispatch),
     checkCurrentUser: bindActionCreators(
       actionCeator.checkCurrentUser,
       dispatch

@@ -13,6 +13,14 @@ export function signIn() {
   };
 }
 
+export function signOut() {
+  return function(dispatch: Dispatch<AuthAction>) {
+    authService.signOut().then(authenticated => {
+      return dispatch(signInSuccess(authenticated));
+    });
+  };
+}
+
 export function checkCurrentUser() {
   return function(dispatch: Dispatch<AuthAction>) {
     authService.authStateChanged.on("auth", user => {

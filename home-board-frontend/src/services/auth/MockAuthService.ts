@@ -14,6 +14,12 @@ export default class MockAuthService extends BaseAuthService {
     });
   }
 
+  signOut(): Promise<boolean> {
+    return new Promise<boolean>((resolve, reject) => {
+      resolve(false);
+    });
+  }
+
   getCurrentUser() {
     this.authStateChanged.emit("auth", true);
   }

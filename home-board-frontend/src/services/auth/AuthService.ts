@@ -35,6 +35,16 @@ export default class AuthService extends BaseAuthService {
     });
   }
 
+  signOut(): Promise<boolean> {
+    return auth()
+      .signOut()
+      .then(function() {
+        return new Promise<boolean>((resolve, reject) => {
+          resolve(false);
+        });
+      });
+  }
+
   getCurrentUser() {
     auth().onAuthStateChanged(user => {
       if (user) {
