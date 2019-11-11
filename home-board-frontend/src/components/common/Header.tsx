@@ -1,6 +1,5 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { NavLink } from "react-router-dom";
-import { auth } from "firebase";
 import { Dispatch, bindActionCreators } from "redux";
 import * as actionCeator from "../../state/auth/authActionCreator";
 import { AppState } from "../../state";
@@ -11,6 +10,10 @@ type props = ReturnType<typeof mapStateToProps> &
 
 const Header: React.FunctionComponent<props> = props => {
   const activeStyle = { color: "orange" };
+
+  useEffect(() => {
+    props.checkCurrentUser();
+  }, []);
 
   return (
     <nav className="navbar navbar-expand-lg">
@@ -58,7 +61,11 @@ export function mapStateToProps(state: AppState) {
 
 function mapDispatchToProps(dispatch: Dispatch) {
   return {
-    signIn: bindActionCreators(actionCeator.signIn, dispatch)
+    signIn: bindActionCreators(actionCeator.signIn, dispatch),
+    checkCurrentUser: bindActionCreators(
+      actionCeator.checkCurrentUser,
+      dispatch
+    )
   };
 }
 

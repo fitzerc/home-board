@@ -7,9 +7,5 @@ export default {
   todos: [] as Todo[],
   meals: [] as Meal[],
   groceries: [] as Grocery[],
-  authenticated: hasCurrentUser()
+  authenticated: false
 };
-
-function hasCurrentUser() {
-  return getUser() != null;
-}

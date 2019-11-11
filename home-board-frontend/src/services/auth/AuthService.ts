@@ -30,6 +30,9 @@ export default class AuthService {
   }
 
   getCurrentUser() {
-    return auth().currentUser;
+    const authObj = auth();
+    return new Promise((resolve, reject) => {
+      resolve(authObj.currentUser);
+    });
   }
 }
