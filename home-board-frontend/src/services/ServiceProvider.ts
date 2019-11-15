@@ -14,6 +14,8 @@ import { db } from "./FirestoreDb";
 import BaseAuthService from "./auth/BaseAuthService";
 import MockAuthService from "./auth/MockAuthService";
 import AuthService from "./auth/AuthService";
+import IStoreService from "./stores/IStoreService";
+import FirebaseStoreService from "./stores/FirebaseStoreService";
 
 export const apiUrl: string = "https://localhost:44368/api/";
 
@@ -66,5 +68,14 @@ export function GetAuthService(): BaseAuthService {
       return new AuthService();
     default:
       return new MockAuthService();
+  }
+}
+
+export function GetStoreService(): IStoreService {
+  switch (+environment) {
+    case env.firebase:
+      return new FirebaseStoreService(db);
+    default:
+      return new FirebaseStoreService(db);
   }
 }

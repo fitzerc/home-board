@@ -1,0 +1,1 @@
+export const GET_STORES_SUCCESS = "GET_STORES_SUCCESS";
