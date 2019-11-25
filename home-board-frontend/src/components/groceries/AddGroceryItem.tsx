@@ -1,32 +1,28 @@
 import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Grocery } from "./Grocery";
+import Store from "./Store";
+import { mapDispatchToProps } from "../todos/TodoPage";
 
 interface Props {
+  stores: Store[];
   addClicked: (item: Grocery) => void;
 }
 
-const AddGroceryItem: React.FunctionComponent<Props> = ({ addClicked }) => {
-  const [newItem, setNewItem] = useState("");
-  const [newItemType, setNewItemType] = useState("");
-
-  function updateNewItem(e: ChangeEvent) {
-    setNewItem((e.target as HTMLInputElement).value);
-  }
-
-  function updateNewItemType(e: ChangeEvent) {
-    setNewItemType((e.target as HTMLInputElement).value);
-  }
-
+const AddGroceryItem: React.FunctionComponent<Props> = ({
+  stores,
+  addClicked
+}) => {
   function addBtnClicked(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    const store = (document.getElementById("store") as HTMLSelectElement).value;
+    const newItem = document.getElementById("item") as HTMLInputElement;
+
     addClicked({
-      item: newItem,
-      itemType: newItemType
+      item: newItem.value,
+      itemType: store
     });
-    setNewItem("");
-    setNewItemType("");
-    (document.getElementById("item") as HTMLInputElement).value = "";
-    (document.getElementById("itemType") as HTMLInputElement).value = "";
+
+    newItem.value = "";
   }
 
   return (
@@ -38,16 +34,12 @@ const AddGroceryItem: React.FunctionComponent<Props> = ({ addClicked }) => {
           id="item"
           placeholder="Grocery Item"
           aria-label="Grocery Item"
-          onChange={updateNewItem}
         ></input>
-        <input
-          type="text"
-          className="form-control"
-          id="itemType"
-          placeholder="Grocery Item Type"
-          aria-label="Grocery Item Type"
-          onChange={updateNewItemType}
-        ></input>
+        <select id="store">
+          {stores.map(store => {
+            return <option key={store.id}>{store.name}</option>;
+          })}
+        </select>
         <div className="input-group-append">
           <button type="submit" className="button">
             Add

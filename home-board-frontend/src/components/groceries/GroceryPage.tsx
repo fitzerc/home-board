@@ -5,6 +5,7 @@ import { AppState } from "../../state";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import * as actionCreator from "../../state/groceries/groceryActionCreators";
+import * as storeActionCreator from "../../state/stores/storeActionCreators";
 import { Grocery } from "./Grocery";
 
 type props = ReturnType<typeof mapStateToProps> &
@@ -13,6 +14,7 @@ type props = ReturnType<typeof mapStateToProps> &
 const GroceryPage: React.FunctionComponent<props> = props => {
   useEffect(() => {
     props.getGroceries();
+    props.getStores();
   }, []);
 
   function addGroceryItem(item: Grocery) {
@@ -35,13 +37,14 @@ const GroceryPage: React.FunctionComponent<props> = props => {
 
   return (
     <>
-      <h1>Grocery List</h1>
+      <h1>Shopping List</h1>
       <GroceryTable
         groceryItems={props.groceries}
+        stores={props.stores}
         deleteItem={deleteGroceryItem}
       />
       <hr />
-      <AddGroceryItem addClicked={addGroceryItem} />
+      <AddGroceryItem stores={props.stores} addClicked={addGroceryItem} />
     </>
   );
 };
@@ -49,7 +52,8 @@ const GroceryPage: React.FunctionComponent<props> = props => {
 function mapStateToProps(state: AppState) {
   return {
     groceries: state.groceries,
-    authenticated: state.authenticated
+    authenticated: state.authenticated,
+    stores: state.stores
   };
 }
 
@@ -60,7 +64,8 @@ function mapDispatchToProps(dispatch: any) {
       actionCreator.deleteGrocery,
       dispatch
     ),
-    getGroceries: bindActionCreators(actionCreator.getGroceries, dispatch)
+    getGroceries: bindActionCreators(actionCreator.getGroceries, dispatch),
+    getStores: bindActionCreators(storeActionCreator.getStores, dispatch)
   };
 }
 

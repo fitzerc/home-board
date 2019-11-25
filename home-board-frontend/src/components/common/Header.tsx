@@ -42,7 +42,7 @@ const Header: React.FunctionComponent<props> = props => {
           </li>
           <li>
             <NavLink activeStyle={activeStyle} to="/groceries">
-              Grocery List
+              Shopping List
             </NavLink>{" "}
             {" | "}
           </li>
