@@ -16,7 +16,7 @@ const MealRow: React.FunctionComponent<Props> = ({ meal, deleteClicked }) => {
   return (
     <tbody>
       <tr>
-        <td>{weekDays[new Date(Date.parse(meal.date)).getDay()]}</td>
+        <td>{meal.date.slice(0, -5)}</td>
         <td>{meal.main}</td>
         <td>{meal.side1}</td>
         <td>{meal.side2}</td>

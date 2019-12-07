@@ -17,7 +17,7 @@ const TodoRow: React.FunctionComponent<Props> = ({ todo, deleteTodo }) => {
     <tbody>
       <tr>
         <td>{todo.item}</td>
-        <td>{weekDays[new Date(Date.parse(todo.doDate)).getDay()]}</td>
+        <td>{todo.doDate.slice(0, -5)}</td>
         {
           <td>
             <DeleteButton deleteClicked={deleteClicked} />
